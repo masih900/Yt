@@ -65,6 +65,7 @@ echo -e "${White}     | ${Red}[${Yellow}01${Red}]${White} |$Green Install Chromi
 echo -e "${White}     | ${Red}[${Yellow}02${Red}]${White} |$Green Install Firefox${White}                                            |"
 echo -e "${White}     | ${Red}[${Yellow}03${Red}]${White} |$Green Install Opera${White}                                              |"
 echo -e "${White}     | ${Red}[${Yellow}04${Red}]${White} |$Green Install Mullvad Browser${White}                                    |"
+echo -e "${White}     | ${Red}[${Yellow}05${Red}]${White} |$Green Install Minecraft Server${White}                                  |"
 echo -e "${Yellow}     +${White}-------------------------------------------------------------------${Yellow}+"
 echo ""
 echo -e -n "$White    ${Red} [${Cyan}!Note:${Red}]$White If your choice is Chromium type $Green 1${White} not ${Red}01$White and the same principle applies to other browsers "
@@ -133,8 +134,19 @@ case $choice in
             --restart unless-stopped \
             ghcr.io/linuxserver/mullvad-browser:latest
         ;;
+    5)
+        echo "Installing Minecraft Server..."
+        docker run -d \
+            --name=minecraft-server \
+            -e EULA=TRUE \
+            -e VERSION=LATEST \
+            -p 25565:25565 \
+            -v /minecraft/data:/data \
+            --restart unless-stopped \
+            itzg/minecraft-server:latest
+        ;;
     *)
-        echo "Invalid choice. Please enter 1, 2, 3, or 4."
+        echo "Invalid choice. Please enter 1, 2, 3, 4, or 5."
         exit 1
         ;;
 esac
